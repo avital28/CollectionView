@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Collection_view.MainPage"
+             xmlns:Models="clr-namespace:BindingToObject.Models"
+             xmlns:this="clr-namespace:Collection_view"
+             x:DataType="this:MainPage">
+
+    <VerticalStackLayout>
+
+        <Button x:Name="Load"
+            FontAttributes="Bold"
+            FontSize="Body"
+                Margin="0,200,0,0"
+            Clicked="Button_Clicked"
+            HeightRequest="70"
+            Text="Load Students"
+            WidthRequest="230"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            BackgroundColor="DeepSkyBlue"
+                CornerRadius="10"
+            
+         />
+        
+        <CollectionView x:Name="collection" 
+             ItemsSource="{Binding Students}" 
+             SelectionMode="Single"
+            SelectedItem="{Binding Student}"   
+                ItemsLayout="HorizontalGrid, 4"
+                        CanReorderItems="True">
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="Models:Student">
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem
+                                BackgroundColor="LightPink"
+                                Invoked="SwipeItem_Clicked"
+                                IconImageSource="deletebutton.svg"
+                                Text="Delete" />
+                                <SwipeItem
+                                BackgroundColor="LightGreen"
+                                Invoked="SwipeItem_Clicked"
+                                Text="Duplicate" />
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+
+                        <Grid Margin="15,5,15,5"
+                              Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="35" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding Image}" Grid.Column="0" Grid.RowSpan="3" HeightRequest="80" WidthRequest="80"></Image>
+                            <Label Grid.Column="1" Grid.Row="0"
+                       Text="{Binding Name}"
+                       FontAttributes="Bold"
+                       LineBreakMode="TailTruncation" />
+                            <Label Grid.Column="1" Grid.Row="1"
+                       Text="{Binding Age, StringFormat='{0:F1}'}"
+                       FontAttributes="Bold"
+                       LineBreakMode="TailTruncation" />
+                            <Label Grid.Column="1" Grid.Row="2"
+                       Text="{Binding BirthDate, StringFormat='{0:dd/MM/yyyy}'}"
+                       FontAttributes="Bold"
+                        />
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid x:Name="actions" Padding="20" IsVisible="false"
+            RowDefinitions="*" 
+            ColumnDefinitions="*,*,*">
+            <Button Text="Delete all"
+                    Clicked="ActionButtonClicked"
+                    Grid.Row="0" Grid.Column="0" 
+                    VerticalOptions="Start"
+                    HorizontalOptions="Center" 
+                    CornerRadius="10" HeightRequest="40" WidthRequest="100" 
+                    BackgroundColor="DeepSkyBlue" Opacity="10">
+            </Button>
+            <Button Text="Delete"
+                    Clicked="ActionButtonClicked"
+                    Grid.Row="0" Grid.Column="1" 
+                    VerticalOptions="Start"
+                    HorizontalOptions="Center" 
+                    CornerRadius="10" HeightRequest="40" WidthRequest="100" 
+                    BackgroundColor="DeepSkyBlue" Opacity="10">
+        </Button>
+        <Button Text="Duplicate"
+                Clicked="ActionButtonClicked"
+                    Grid.Row="0" Grid.Column="2" 
+                    VerticalOptions="Start"
+                    HorizontalOptions="Center" 
+                    CornerRadius="10" HeightRequest="40" WidthRequest="100" 
+                    BackgroundColor="DeepSkyBlue" Opacity="10">
+        </Button>
+        </Grid>
+    </VerticalStackLayout>
+
+</ContentPage>
